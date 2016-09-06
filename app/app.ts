@@ -1,12 +1,14 @@
 import {Component, ViewChild} from '@angular/core';
-import {ionicBootstrap, Platform, MenuController, Nav} from 'ionic-angular';
+import {ionicBootstrap, Config, Platform, MenuController, Nav} from 'ionic-angular';
 import {StatusBar} from 'ionic-native';
 import {HelloIonicPage} from './pages/hello-ionic/hello-ionic';
 import {ListPage} from './pages/list/list';
+import {MangaApi} from './providers/manga-api/manga-api';
 
 
 @Component({
-  templateUrl: 'build/app.html'
+  templateUrl: 'build/app.html',
+  providers: [MangaApi]
 })
 class MyApp {
   @ViewChild(Nav) nav: Nav;
@@ -17,10 +19,20 @@ class MyApp {
 
   constructor(
     public platform: Platform,
-    public menu: MenuController
+    public config: Config,
+    public menu: MenuController,
+    public mangaApi: MangaApi
   ) {
+    
+    this.config.set('APIURL', 'http://japi.juhe.cn/comic/');
+    this.config.set('APPKEY', '39cad5a9f40b32d0d5b5dbede152254b');
+
     this.initializeApp();
 
+    this.mangaApi.getCategory()
+    .then(data => {
+      console.log(data)
+    });
     // set our app's pages
     this.pages = [
       { title: 'Hello Ionic', component: HelloIonicPage },
