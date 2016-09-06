@@ -1,10 +1,14 @@
-# manga      VERALAND
+Manga
 =====================
 
 This is an Ionic 2 app.
 ## Using this project
 
 You'll need the Ionic CLI with support for v2 apps:
+
+```bash
+$ npm install -g ionic@beta
+```
 
 ```bash
 $ npm install
@@ -29,3 +33,5 @@ $ ionic run android
 
 
 More info on this can be found on the Ionic 2 [Getting Started](http://ionicframework.com/docs/v2/getting-started/) page.
+
+VERALAND
