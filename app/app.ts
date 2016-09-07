@@ -1,14 +1,14 @@
 import {Component, ViewChild} from '@angular/core';
-import {ionicBootstrap, Config, Platform, MenuController, Nav} from 'ionic-angular';
+import {ionicBootstrap, Platform, MenuController, Nav} from 'ionic-angular';
 import {StatusBar} from 'ionic-native';
 import {HelloIonicPage} from './pages/hello-ionic/hello-ionic';
 import {ListPage} from './pages/list/list';
-import {MangaApi} from './providers/manga-api/manga-api';
+import {DataService} from './providers/data-service/data-service';
 
 
 @Component({
   templateUrl: 'build/app.html',
-  providers: [MangaApi]
+  providers: [DataService]
 })
 class MyApp {
   @ViewChild(Nav) nav: Nav;
@@ -19,17 +19,13 @@ class MyApp {
 
   constructor(
     public platform: Platform,
-    public config: Config,
     public menu: MenuController,
-    public mangaApi: MangaApi
+    public dataService: DataService
   ) {
     
-    this.config.set('APIURL', 'http://japi.juhe.cn/comic/');
-    this.config.set('APPKEY', '39cad5a9f40b32d0d5b5dbede152254b');
-
     this.initializeApp();
 
-    this.mangaApi.getCategory()
+    this.dataService.category()
     .then(data => {
       console.log(data)
     });
