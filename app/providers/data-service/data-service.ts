@@ -15,6 +15,7 @@ export class DataService {
   appKey: string;
 
   constructor(private http: Http) {
+    //this.apiUrl = '/'; 
     this.apiUrl = 'https://japi.juhe.cn/comic/'; 
     this.appKey = '39cad5a9f40b32d0d5b5dbede152254b'; 
   }
@@ -31,7 +32,7 @@ export class DataService {
             this.categories = data;
             resolve(this.categories);
           },
-          err => resolve({error_code: -1, reason: "http error!", result: []})
+          err => resolve({error_code: -1, reason: "网络错误，请稍后重试!", result: []})
         );
     });
   }
@@ -55,7 +56,7 @@ export class DataService {
         .subscribe(data => {
             resolve(data);
           },
-          err => resolve({error_code: -1, reason: "http error!", result: []})
+          err => resolve({error_code: -1, reason: "网络错误，请稍后重试!", result: []})
         );
     });
   }
@@ -77,7 +78,7 @@ export class DataService {
         .subscribe(data => {
             resolve(data);
           },
-          err => resolve({error_code: -1, reason: "http error!", result: []})
+          err => resolve({error_code: -1, reason: "网络错误，请稍后重试!", result: []})
         );
     });
   }
@@ -100,7 +101,7 @@ export class DataService {
         .subscribe(data => {
             resolve(data);
           },
-          err => resolve({error_code: -1, reason: "http error!", result: []})
+          err => resolve({error_code: -1, reason: "网络错误，请稍后重试!", result: []})
         );
     });
   }

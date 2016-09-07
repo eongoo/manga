@@ -2,20 +2,18 @@ import { Component } from '@angular/core';
 import { NavController, ToastController, NavParams } from 'ionic-angular';
 import { DataService } from '../../providers/data-service/data-service';
 import { ChapterListPage } from '../chapter-list/chapter-list';
-import { BookSearchPage } from '../book-search/book-search';
 
 /*
-  Generated class for the BookListPage page.
+  Generated class for the BookSearchPage page.
 
   See http://ionicframework.com/docs/v2/components/#navigation for more info on
   Ionic pages and navigation.
 */
 @Component({
-  templateUrl: 'build/pages/book-list/book-list.html',
+  templateUrl: 'build/pages/book-search/book-search.html',
   providers: [DataService]
 })
-
-export class BookListPage {
+export class BookSearchPage {
   selectedCategory: any;
   response: any;
   bookList: any;
@@ -32,7 +30,12 @@ export class BookListPage {
       this.selectedCategory = '';
     }
 
-    this.dataService.book('', this.selectedCategory, '', '')
+  }
+
+  getBooks(ev) {
+    var val = ev.target.value;
+
+    this.dataService.book(val, this.selectedCategory, '', '')
     .then(data => {
       this.response = data;
       if (this.response.error_code === 200) {
@@ -41,12 +44,6 @@ export class BookListPage {
         this.bookList = [];
         this.presentToast(this.response.reason);
       }
-    });
-  }
-
-  bookSearch(event, category) {
-    this.navCtrl.push(BookSearchPage, {
-      category: category 
     });
   }
 
