@@ -26,12 +26,14 @@ export class BookListPage {
     navParams: NavParams
   ) {
     this.selectedCategory = navParams.get('category');
-    console.log(this.selectedCategory);
+
+    if (!this.selectedCategory) {
+      this.selectedCategory = '';
+    }
 
     this.dataService.book('', this.selectedCategory, '', '')
     .then(data => {
       this.response = data;
-      console.log(data)
       if (this.response.error_code === 200) {
         this.bookList = this.response.result.bookList;
       } else {
@@ -51,7 +53,7 @@ export class BookListPage {
     let toast = this.toast.create({
       message: message,
       position: 'middle',
-      duration: 3000
+      duration: 2000
     });
     toast.present();
   }

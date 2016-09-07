@@ -7,12 +7,16 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>chapterContent</ion-title>
+    <ion-title>{{selectedChapter.name}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-
+  <ion-slides>
+    <ion-slide *ngFor="let image of imageList">
+       <img [src]="image.imageUrl" class="slide-image"/>
+    </ion-slide>
+  </ion-slides>
 </ion-content>

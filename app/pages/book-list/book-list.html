@@ -9,52 +9,31 @@
     <button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>{{selectedCategory}}</ion-title>
+    <ion-title *ngIf="selectedCategory">{{selectedCategory}}</ion-title>
+    <ion-title *ngIf="!selectedCategory">全部漫画</ion-title>
   </ion-navbar>
 
 </ion-header>
 
-
-<ion-content padding>
-
-  <ion-card *ngFor="let book of bookList">
-
-    <ion-item>
-      <ion-avatar item-left>
-        <img src="{{book.coverImg}}">
-      </ion-avatar>
-      <h2>{{book.name}}</h2>
-    </ion-item>
-
-    <img src="{{book.coverImg}}">
-
-    <ion-card-content>
-      <p>{{book.des}}</p>
-    </ion-card-content>
-
-    <ion-row>
-      <ion-col>
-        <!--
-        <button primary clear small>
-          <ion-icon name="thumbs-up"></ion-icon>
-          <div>12</div>
-        </button>
-        -->
-      </ion-col>
-      <ion-col>
-        <!--
-        <button primary clear small>
-          <ion-icon name="text"></ion-icon>
-          <div>4</div>
-        </button>
-        -->
-      </ion-col>
-      <ion-col center text-center>
-        <ion-note>
-          {{book.lastUpdate}}
-        </ion-note>
+<ion-content padding class="book-list">
+  <ion-grid>
+    <ion-row wrap>
+      <ion-col width-50 *ngFor="let book of bookList" (click)="bookTapped($event, book)">
+        <ion-card>
+          <ion-img [src]="book.coverImg" [alt]="book.des" [title]="book.name"></ion-img>
+          <ion-card-header>
+            {{book.name}}
+          </ion-card-header>
+        </ion-card>
       </ion-col>
     </ion-row>
-
+  </ion-grid>
+  <!--
+  <ion-card *ngFor="let book of bookList" (click)="bookTapped($event, book)">
+    <ion-item>
+      <ion-label>{{book.name}}</ion-label>
+    </ion-item>
+    <ion-img [src]="book.coverImg" [alt]="book.des" [title]="book.name"></ion-img>
   </ion-card>
+  -->
 </ion-content>

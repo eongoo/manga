@@ -7,12 +7,14 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>chapterList</ion-title>
+    <ion-title>{{selectedBook.name}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
-
+<ion-content>
+  <button ion-item *ngFor="let chapter of chapterList" (click)="chapterTapped($event, chapter)">
+    {{chapter.name}}
+  </button>
 </ion-content>

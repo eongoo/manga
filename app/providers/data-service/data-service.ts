@@ -65,7 +65,21 @@ export class DataService {
    * skip         int     否          跳过的条数  
    * */
   chapter(comicName, skip) {
-    this.resolve('chapter', {comicName: comicName, skip: skip});
+    let paramters = {comicName: comicName, skip: skip};
+    let path = 'chapter';
+    let APIURL = this.apiUrl + path + '?key=' + this.appKey;
+    for (let p in paramters) {
+      APIURL += '&' + p + '=' + paramters[p];
+    }
+    return new Promise(resolve => {
+      this.http.get(APIURL)
+        .map(res => res.json())
+        .subscribe(data => {
+            resolve(data);
+          },
+          err => resolve({error_code: -1, reason: "http error!", result: []})
+        );
+    });
   }
 
 
@@ -74,10 +88,8 @@ export class DataService {
    * id           int     是          章节ID 
    * */
   chapterContent(comicName, id) {
-    this.resolve('chapter', {comicName: comicName, id: id});
-  }
-
-  resolve(path, paramters) {
+    let paramters = {comicName: comicName, id: id};
+    let path = 'chapterContent';
     let APIURL = this.apiUrl + path + '?key=' + this.appKey;
     for (let p in paramters) {
       APIURL += '&' + p + '=' + paramters[p];

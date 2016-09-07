@@ -15,7 +15,7 @@ class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   // make HelloIonicPage the root (or first) page
-  rootPage: any = HelloIonicPage;
+  rootPage: any = BookListPage;
   pages: Array<{category: string, component: any}>;
 
   constructor(
@@ -39,11 +39,7 @@ class MyApp {
       }
     });
 
-    this.pages = [
-      { category: 'Hello Ionic', component: HelloIonicPage },
-      { category: '全部漫画', component: BookListPage},
-      { category: 'My First List', component: ListPage }
-    ];
+    this.pages = [ ];
   }
 
   initializeApp() {
@@ -65,7 +61,7 @@ class MyApp {
     let toast = this.toast.create({
       message: message,
       position: 'middle',
-      duration: 3000
+      duration: 2000
     });
     toast.present();
   }
