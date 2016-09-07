@@ -1,7 +1,8 @@
 import {Component, ViewChild} from '@angular/core';
-import {ionicBootstrap, Platform, MenuController, Nav} from 'ionic-angular';
+import {ionicBootstrap, ToastController, Platform, MenuController, Nav} from 'ionic-angular';
 import {StatusBar} from 'ionic-native';
 import {HelloIonicPage} from './pages/hello-ionic/hello-ionic';
+import {BookListPage} from './pages/book-list/book-list';
 import {ListPage} from './pages/list/list';
 import {DataService} from './providers/data-service/data-service';
 
@@ -15,24 +16,33 @@ class MyApp {
 
   // make HelloIonicPage the root (or first) page
   rootPage: any = HelloIonicPage;
-  pages: Array<{title: string, component: any}>;
+  pages: Array<{category: string, component: any}>;
 
   constructor(
     public platform: Platform,
     public menu: MenuController,
-    public dataService: DataService
+    public dataService: DataService,
+    public toast: ToastController
   ) {
     
+
     this.initializeApp();
 
     this.dataService.category()
     .then(data => {
-      console.log(data)
+      if (data.error_code === 0) {
+        data.result.forEach(category => {
+          this.pages.push({ category: category, component: BookListPage}); 
+        })
+      } else {
+        this.presentToast(data.reason)
+      }
     });
-    // set our app's pages
+
     this.pages = [
-      { title: 'Hello Ionic', component: HelloIonicPage },
-      { title: 'My First List', component: ListPage }
+      { category: 'Hello Ionic', component: HelloIonicPage },
+      { category: '全部漫画', component: BookListPage},
+      { category: 'My First List', component: ListPage }
     ];
   }
 
@@ -48,7 +58,16 @@ class MyApp {
     // close the menu when clicking a link from the menu
     this.menu.close();
     // navigate to the new page if it is not the current page
-    this.nav.setRoot(page.component);
+    this.nav.setRoot(page.component, {category: page.category});
+  }
+
+  presentToast(message) {
+    let toast = this.toast.create({
+      message: message,
+      position: 'middle',
+      duration: 3000
+    });
+    toast.present();
   }
 }
 
